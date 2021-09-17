@@ -14,6 +14,8 @@ const {
   isExternalTable,
   breakExternalTableId,
 } = require("../../../integrations/utils")
+const { env } = require("process")
+const { quotaMiddleware, QuotaTypes } = require("../../../middleware/quota")
 
 exports.fetch = async function (ctx) {
   const db = new CouchDB(ctx.appId)
@@ -196,8 +198,15 @@ exports.destroy = async function (ctx) {
   ctx.body = { message: `Table ${ctx.params.tableId} deleted.` }
 }
 
-exports.validateCSVSchema = async function (ctx) {
+exports.validateCSVSchema = async function (ctx, next) {
   const { csvString, schema = {} } = ctx.request.body
-  const result = await csvParser.parse(csvString, schema)
-  ctx.body = { schema: result }
+  const parserResult = await csvParser.parse(csvString, schema)
+
+  // check this CSV upload won't be over the limit in the cloud
+  if (!env.SELF_HOSTED) {
+    const quota = quotaMiddleware(QuotaTypes.RECORDS)
+    await quota(ctx, next, parserResult.rows) 
+  }
+
+  ctx.body = { schema: parserResult.schema }
 }

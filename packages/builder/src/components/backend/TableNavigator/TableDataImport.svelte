@@ -60,7 +60,7 @@
     }
 
     if (response.status !== 200) {
-      notifications.error("CSV Invalid, please try another CSV file")
+      notifications.error(parseResult.message)
       return []
     }
   }

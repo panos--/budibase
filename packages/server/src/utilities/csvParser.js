@@ -39,6 +39,7 @@ function parse(csvString, parsers) {
   const result = csv().fromString(csvString)
 
   const schema = {}
+  let rows = 0
 
   return new Promise((resolve, reject) => {
     result.on("header", headers => {
@@ -48,6 +49,7 @@ function parse(csvString, parsers) {
           success: true,
         }
       }
+      rows++
     })
     result.subscribe(row => {
       // For each CSV row parse all the columns that need parsed
@@ -64,6 +66,7 @@ function parse(csvString, parsers) {
           }
         }
       }
+      rows++
     })
     result.on("done", error => {
       if (error) {
@@ -71,7 +74,7 @@ function parse(csvString, parsers) {
         reject(error)
       }
 
-      resolve(schema)
+      resolve({ schema, rows })
     })
   })
 }

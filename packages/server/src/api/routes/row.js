@@ -10,6 +10,7 @@ const {
   PermissionLevels,
   PermissionTypes,
 } = require("@budibase/auth/permissions")
+const { quotaMiddleware: quota, QuotaTypes } = require("../../middleware/quota")
 
 const router = Router()
 
@@ -50,6 +51,7 @@ router
     "/api/:tableId/rows",
     paramResource("tableId"),
     authorized(PermissionTypes.TABLE, PermissionLevels.WRITE),
+    quota(QuotaTypes.RECORDS),
     usage,
     rowController.save
   )

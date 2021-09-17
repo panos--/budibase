@@ -38,35 +38,39 @@ describe("CSV Parser", () => {
   describe("parsing", () => {
     it("returns status and types for a valid CSV transformation", async () => {
       expect(await csvParser.parse(csvString, SCHEMAS.VALID)).toEqual({
-        Address: {
-          success: true,
-          type: "string",
-        },
-        Age: {
-          success: true,
-          type: "number",
-        },
-        Name: {
-          success: true,
-          type: "string",
-        },
+        schema: {
+          Address: {
+            success: true,
+            type: "string",
+          },
+          Age: {
+            success: true,
+            type: "number",
+          },
+          Name: {
+            success: true,
+            type: "string",
+          },
+        }
       })
     })
 
     it("returns status and types for an invalid CSV transformation", async () => {
       expect(await csvParser.parse(csvString, SCHEMAS.INVALID)).toEqual({
-        Address: {
-          success: false,
-          type: "number",
-        },
-        Age: {
-          success: true,
-          type: "number",
-        },
-        Name: {
-          success: true,
-          type: "string",
-        },
+        schema: {
+          Address: {
+            success: false,
+            type: "number",
+          },
+          Age: {
+            success: true,
+            type: "number",
+          },
+          Name: {
+            success: true,
+            type: "string",
+          },
+        }
       })
     })
   })
