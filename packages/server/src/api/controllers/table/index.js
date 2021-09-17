@@ -205,7 +205,7 @@ exports.validateCSVSchema = async function (ctx, next) {
   // check this CSV upload won't be over the limit in the cloud
   if (!env.SELF_HOSTED) {
     const quota = quotaMiddleware(QuotaTypes.RECORDS)
-    await quota(ctx, next, parserResult.rows) 
+    await quota(ctx, next, parserResult.rows)
   }
 
   ctx.body = { schema: parserResult.schema }
