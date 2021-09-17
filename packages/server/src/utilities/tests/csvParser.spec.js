@@ -38,6 +38,7 @@ describe("CSV Parser", () => {
   describe("parsing", () => {
     it("returns status and types for a valid CSV transformation", async () => {
       expect(await csvParser.parse(csvString, SCHEMAS.VALID)).toEqual({
+        rows: 4,
         schema: {
           Address: {
             success: true,
@@ -57,6 +58,7 @@ describe("CSV Parser", () => {
 
     it("returns status and types for an invalid CSV transformation", async () => {
       expect(await csvParser.parse(csvString, SCHEMAS.INVALID)).toEqual({
+        rows: 4,
         schema: {
           Address: {
             success: false,
