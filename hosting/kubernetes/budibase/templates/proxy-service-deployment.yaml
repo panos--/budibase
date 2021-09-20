@@ -24,6 +24,10 @@ spec:
       labels:
         app.kubernetes.io/name: budibase-proxy
     spec:
+      {{ if .Values.services.proxy.initContainers }}
+      initContainers:
+{{ toYaml .Values.services.proxy.initContainers | indent 8 }}
+      {{ end }}
       containers:
       - image: budibase/proxy
         imagePullPolicy: ""
@@ -32,7 +36,13 @@ spec:
         - containerPort: {{ .Values.services.proxy.port }}
         resources: {}
         volumeMounts:
+          {{ if .Values.services.proxy.volumeMounts }}
+{{ toYaml .Values.services.proxy.volumeMounts | indent 10 }}
+          {{ end }}
       restartPolicy: Always
       serviceAccountName: ""
       volumes:
+        {{ if .Values.services.proxy.volumes }}
+{{ toYaml .Values.services.proxy.volumes | indent 8 }}
+        {{ end }}
 status: {}
