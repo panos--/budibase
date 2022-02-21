@@ -120,6 +120,8 @@ services:
   proxy:
     port: 10000
     replicaCount: 1
+    tag: k8s
+    sha: null
 
   apps:
     port: 4002

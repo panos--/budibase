@@ -25,7 +25,12 @@ spec:
         app.kubernetes.io/name: budibase-proxy
     spec:
       containers:
-      - image: budibase/proxy:{{ .Values.services.proxy.tag | default "k8s" }}
+      -
+        {{ if .Values.services.proxy.sha }}
+        image: budibase/proxy@sha256:{{ .Values.services.proxy.sha }}
+        {{ else }}
+        image: budibase/proxy:{{ .Values.services.proxy.tag | default "k8s" }}
+        {{ end }}
         imagePullPolicy: Always
         name: proxy-service
         ports:
