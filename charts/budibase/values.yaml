@@ -122,6 +122,9 @@ services:
     replicaCount: 1
     tag: k8s
     sha: null
+    initContainers: []
+    extraVolumes: []
+    extraVolumeMounts: []
 
   apps:
     port: 4002
