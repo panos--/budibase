@@ -124,7 +124,6 @@ spec:
         - name: GOOGLE_CLIENT_SECRET
           value: {{ .Values.globals.google.secret | quote }}
         image: budibase/worker:{{ .Values.globals.appVersion }}
-        imagePullPolicy: Always
         livenessProbe:
           httpGet:
             path: /health
@@ -143,6 +142,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+      {{ if .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml .Values.imagePullSecrets | nindent 6 }}
+      {{ end }}
       restartPolicy: Always
       serviceAccountName: ""
 status: {}
