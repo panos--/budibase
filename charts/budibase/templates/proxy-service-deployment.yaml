@@ -44,6 +44,10 @@ spec:
         {{ if .Values.services.proxy.extraVolumeMounts }}
         {{- toYaml .Values.services.proxy.extraVolumeMounts | nindent 8 }}
         {{ end }}
+      {{ if .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml .Values.imagePullSecrets | nindent 6 }}
+      {{ end }}
       restartPolicy: Always
       serviceAccountName: ""
       volumes:

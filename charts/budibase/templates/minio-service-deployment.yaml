@@ -60,6 +60,10 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: minio-data
+      {{ if .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml .Values.imagePullSecrets | nindent 6 }}
+      {{ end }}
       restartPolicy: Always
       serviceAccountName: ""
       volumes:

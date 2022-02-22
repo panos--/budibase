@@ -111,11 +111,15 @@ spec:
         - name: HTTP_MIGRATIONS
           value: {{ .Values.globals.httpMigrations | quote }}
         image: budibase/apps:{{ .Values.globals.appVersion }}
-        imagePullPolicy: Always
+        imagePullPolicy: ''
         name: bbapps
         ports:
         - containerPort: {{ .Values.services.apps.port }}
         resources: {}
+      {{ if .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml .Values.imagePullSecrets | nindent 6 }}
+      {{ end }}
       restartPolicy: Always
       serviceAccountName: ""
 status: {}

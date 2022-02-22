@@ -39,6 +39,10 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: redis-data
+      {{ if .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml .Values.imagePullSecrets | nindent 6 }}
+      {{ end }}
       restartPolicy: Always
       serviceAccountName: ""
       volumes:
