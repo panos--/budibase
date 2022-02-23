@@ -133,7 +133,10 @@ spec:
         name: bbapps
         ports:
         - containerPort: {{ .Values.services.apps.port }}
-        resources: {}
+        {{ if .Values.services.apps.resources }}
+        resources:
+        {{- toYaml .Values.services.apps.resources | nindent 10 }}
+        {{ end }}
     {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}

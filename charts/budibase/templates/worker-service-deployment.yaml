@@ -133,7 +133,10 @@ spec:
         name: bbworker
         ports:
         - containerPort: {{ .Values.services.worker.port }}
-        resources: {}
+        {{ if .Values.services.worker.resources }}
+        resources:
+        {{- toYaml .Values.services.worker.resources | nindent 10 }}
+        {{ end }}
     {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
