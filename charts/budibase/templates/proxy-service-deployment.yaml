@@ -39,7 +39,10 @@ spec:
         name: proxy-service
         ports:
         - containerPort: {{ .Values.services.proxy.port }}
-        resources: {}
+        {{ if .Values.services.proxy.resources }}
+        resources:
+        {{- toYaml .Values.services.proxy.resources | nindent 10 }}
+        {{ end }}
         volumeMounts:
         {{ if .Values.services.proxy.extraVolumeMounts }}
         {{- toYaml .Values.services.proxy.extraVolumeMounts | nindent 8 }}

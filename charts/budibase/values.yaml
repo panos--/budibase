@@ -122,6 +122,7 @@ services:
     replicaCount: 1
     tag: k8s
     sha: null
+    resources: {}
     initContainers: []
     extraVolumes: []
     extraVolumeMounts: []
@@ -130,10 +131,12 @@ services:
     port: 4002
     replicaCount: 1
     logLevel: info
+    resources: {}
 
   worker:
     port: 4003
     replicaCount: 1
+    resources: {}
 
   couchdb:
     enabled: true
