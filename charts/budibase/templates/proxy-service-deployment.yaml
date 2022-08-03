@@ -43,6 +43,10 @@ spec:
         {{ if .Values.services.proxy.extraVolumeMounts }}
         {{- toYaml .Values.services.proxy.extraVolumeMounts | nindent 8 }}
         {{ end }}
+        env:
+        {{ if .Values.services.proxy.extraEnvVars }}
+        {{- toYaml .Values.services.proxy.extraEnvVars | nindent 8 }}
+        {{ end }}
       {{ if .Values.imagePullSecrets }}
       imagePullSecrets:
       {{- toYaml .Values.imagePullSecrets | nindent 6 }}

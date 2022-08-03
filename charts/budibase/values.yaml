@@ -126,6 +126,7 @@ services:
     initContainers: []
     extraVolumes: []
     extraVolumeMounts: []
+    extraEnvVars: []
 
   apps:
     port: 4002
