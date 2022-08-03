@@ -120,8 +120,8 @@ services:
   proxy:
     port: 10000
     replicaCount: 1
+    image: budibase/proxy
     tag: k8s
-    sha: null
     resources: {}
     initContainers: []
     extraVolumes: []
