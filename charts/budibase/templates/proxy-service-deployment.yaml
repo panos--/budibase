@@ -30,7 +30,7 @@ spec:
       {{ end }}
       containers:
       -
-        image: {{ .Values.service.proxy.image | default "budibase/proxy" }}:{{ .Values.services.proxy.tag | default "k8s" }}
+        image: {{ .Values.services.proxy.image | default "budibase/proxy" }}:{{ .Values.services.proxy.tag | default "k8s" }}
         imagePullPolicy: Always
         name: proxy-service
         ports:
